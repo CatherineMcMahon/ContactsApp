@@ -5,8 +5,10 @@
 //  Created by Catherine on 9/19/15.
 //  Copyright © 2015 Catherine McMahon. All rights reserved.
 //
-
+import Parse
+import Bolts
 import UIKit
+import ParseUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,9 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Initialize Parse.
+        Parse.setApplicationId("Em43xX9hrhh0qG9pWIdzjlSs1mo2b2S29pN2jLBt",
+            clientKey: "KYcw7MBQXRa6bdp8c2twwFNsIvxP8RixtsFd5nLb")
         return true
-    }
+        }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
