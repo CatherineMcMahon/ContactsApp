@@ -121,12 +121,13 @@
                         <outlet property="imageView" destination="kkP-xB-Yk0" id="0p4-u7-UvH"/>
                         <outlet property="lastName" destination="Yq8-GG-wjS" id="MEX-6F-iqm"/>
                         <outlet property="organization" destination="HzQ-I5-JgE" id="VdA-dT-335"/>
+                        <outlet property="setPictureButton" destination="CpI-77-Iqu" id="opq-ma-8jL"/>
                         <outlet property="url" destination="l5X-KK-tL3" id="EG6-w1-Xko"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="146" y="292"/>
+            <point key="canvasLocation" x="66" y="271"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="24D-hG-DrX">

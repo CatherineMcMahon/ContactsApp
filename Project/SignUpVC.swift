@@ -20,27 +20,34 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var url: UITextField!
     @IBOutlet weak var desc: UITextField!
     
+    var user = PFObject(className: "User")
+    
     //sam code
-//    var ImageNew = UIImage()
+    //    var ImageNew = UIImage()
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var setPictureButton: UIButton!
     
     @IBAction func loadImageButtonTapped(sender: AnyObject) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .PhotoLibrary
         presentViewController(imagePicker, animated: true, completion: nil)
+        setPictureButton.hidden = true
+        
+        
     }
     
     let imagePicker = UIImagePickerController()
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.image = pickedImage
-            //pickedImage = ImageNew
-            //pasre try
-            //let imageData = UIImagePNGRepresentation(pickedImage)
             
-//            let imageData = UIImageJPEGRepresentation(pickedImage, 1)
-//            
-//            
+            let imageData = UIImagePNGRepresentation(pickedImage)
+            let imageFile = PFFile(name: "pickedImage.png", data: imageData!)
+            //            var userPhoto = PFObject(className: "User")
+            user["Image"] = imageFile
+            user.saveInBackground()
+            
+            
             
         }
         
@@ -118,17 +125,17 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         if firstName.hasText() && lastName.hasText() {
             
-            let user = PFObject(className:"User")
-
+            //            let user = PFObject(className:"User")
+            
             PFGeoPoint.geoPointForCurrentLocationInBackground {
                 (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-                    user.setObject(geoPoint!, forKey: "Location")
+                self.user.setObject(geoPoint!, forKey: "Location")
             }
             
             let manager = CLLocationManager()
-            let loc =  manager.location!.coordinate
-            let actualLocation = PFGeoPoint(latitude:loc.latitude,longitude:loc.longitude)
-            user["Location"] = actualLocation
+            //let loc =  manager.location!.coordinate
+            //let actualLocation = PFGeoPoint(latitude:loc.latitude,longitude:loc.longitude)
+            //user["Location"] = actualLocation
             
             user.setValue(firstName.text, forKey:"FirstName")
             user.setValue(lastName.text, forKey:"LastName")
@@ -136,7 +143,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             user.setValue(email.text, forKey:"Email")
             user.setValue(url.text, forKey:"Url")
             user.setValue(desc.text, forKey:"Description")
-
+            
             user.saveInBackgroundWithBlock {
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
@@ -149,7 +156,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             let alert = UIAlertController(title: "Error", message: "Please fill in your full name.", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
-            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
